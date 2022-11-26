@@ -1,0 +1,86 @@
+#ifndef HEADER_H_INCLUDED
+#define HEADER_H_INCLUDED
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <allegro.h>
+#include <string.h>
+#include <time.h>
+
+///Initalisation des structures
+
+typedef struct ville
+{
+    int argent;
+    int population;
+    int nbHabitations;
+    int modeJeu;
+    int capaciteEAU;
+    int capaciteELEC;
+    int impotParJour;
+    int etatActuel;
+    int heure;
+
+}t_v;
+
+
+typedef struct cases
+{
+    int caseX;
+    int caseY;
+    int etat;
+    int colonne;
+    int ligne;
+    int habitant;
+    int alimentationEAU;
+    int alimentationElec;
+    int viabilite;
+    int jefe;
+    time_t dcycle;
+    time_t fcycle;
+}t_c;
+
+
+
+/* Structure d'un arc*/
+struct Arc
+{
+    int sommet; // numéro de sommet d'un arc adjacent au sommet initial
+    int poids;
+    struct Arc* arc_suivant;
+};
+
+/* Alias de pointeur sur un Arc */
+typedef struct Arc* pArc;
+
+
+/* Structure d'un sommet*/
+struct Sommet
+{
+    struct Arc* arc;
+    int valeur;
+    char couleur;
+    struct Sommet* sommet_precedent;
+};
+
+typedef struct Sommet* sommet_precedent;
+
+/* Alias de pointeur sur un Sommet */
+typedef struct Sommet* pSommet;
+
+/* Alias d'un Graphe */
+typedef struct Graphe
+{
+    int taille;
+    int orientation;
+    int ordre;
+    pSommet* pSommet;
+} Graphe;
+
+// créer le graphe
+Graphe* CreerGraphe(t_c grille[1575]);
+
+//créer arête
+pSommet* CreerArete(pSommet* sommet,int s1,int s2);
+
+#endif // HEADER_H_INCLUDED
