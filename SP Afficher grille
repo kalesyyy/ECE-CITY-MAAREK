@@ -1,3 +1,4 @@
+
 //-------------Sous-programme interface du plateau de jeu-------------//
 void afficherGrille()   //on affihe la grille en dessinant des carrées noirs sur un fond blanc et en y ajoutant la boite à outil.
 {
