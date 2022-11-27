@@ -1,0 +1,61 @@
+//-------------Sous-programme interface du plateau de jeu-------------//
+void afficherGrille()   //on affihe la grille en dessinant des carrées noirs sur un fond blanc et en y ajoutant la boite à outil.
+{
+    int i=0;
+    int j=0;
+    BITMAP* buffer;
+    buffer=create_bitmap(SCREEN_W,SCREEN_H);
+
+    //-------------BITMAPS : Boite à Outils--------------//
+    BITMAP* Herbe;         //bitmap fond du pleateau
+    Herbe=load_bitmap("Herbe.bmp", NULL);
+    BITMAP* ChateaueauB;     //bitmap du chateau d'eau
+    ChateaueauB=load_bitmap("ChateaueauB.bmp", NULL);
+    BITMAP* Centrale;       //bitmap de la centrale éléctrique
+    Centrale=load_bitmap("CentraleB.bmp", NULL);
+    BITMAP* BoiteOutils;        //bitmap de la boite à outils
+    BoiteOutils=load_bitmap("BoiteOutils.bmp", NULL);
+    BITMAP* eau_E;      //Ecriture eau
+    eau_E=load_bitmap("eau.bmp", NULL);
+    BITMAP* centrale_E;     //Ecriture centrale electronique
+    centrale_E=load_bitmap("centrale_E.bmp", NULL);
+    BITMAP* choix;      //Ecriture : choix du niveau
+    choix=load_bitmap("choix.bmp", NULL);
+    BITMAP* niveaux;        // Ecriture : niveau 0, niveau 1, niveau 2
+    niveaux=load_bitmap("niveaux.bmp", NULL);
+    BITMAP* exit;       //Quitter
+    exit=load_bitmap("Exit.bmp", NULL);
+
+    //-----------Compteurs--------------//
+    BITMAP* compteurs;      //bitmap avec les compteurs
+    compteurs=load_bitmap("compteurs.bmp", NULL);
+
+    //-----------Grille------------//
+    rectfill(buffer,0,0,1524, 855, makecol(195,195,195));   //dessiner la grille
+    masked_blit(Herbe, buffer,0, 0, 550,75,900,700);        //fond de la grille : herbe
+
+    //-------------Boite à outils------------///
+
+    masked_blit(compteurs, buffer,0, 0,10,10,450,500);
+    masked_blit(BoiteOutils, buffer, 0, 0, 10, 350, 500, 400);
+    rect(buffer,10,470,520,750, makecol(0,0,0));        //bord de la boite à outils
+    masked_blit(ChateaueauB, buffer, 0, 0, 10, 600, 500, 400);
+    masked_blit(Centrale, buffer, 0, 0, 270, 600, 500, 400);
+    masked_blit(eau_E, buffer, 0,0, 120,640, 200, 100);
+    masked_blit(centrale_E, buffer, 0,0, 380,640, 200, 100);
+    masked_blit(choix, buffer, 0,0, 450,780, 200, 100);
+    masked_blit(niveaux, buffer, 0,0, 600,800, 400, 100);
+    masked_blit(exit, buffer, 0,0, 1350,800, 200, 100);
+    //mapesgrilles(buffer);
+
+    //Création de la grille
+    for (i=0; i<45; i++)
+    {
+        for (j=0; j<35; j++)
+        {
+            rect(buffer, 550+i*20, 75+j*20, 550+(i+1)*20,75+(j+1)*20, makecol(0,0,0));  //emplacement de la grille
+        }
+    }
+    show_mouse(buffer);
+    masked_blit(buffer,screen,0,0,0,0,buffer->w,buffer->h);
+    }
