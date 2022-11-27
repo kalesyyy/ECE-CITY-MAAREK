@@ -1,0 +1,57 @@
+
+//-------------------- Affichage de la page d'accueil----------//
+int menuPrincipal()
+{
+    ///--------------Initialisation des Bitmaps----------------///
+    BITMAP *Buffer;
+    Buffer = create_bitmap(SCREEN_W, SCREEN_H);
+    clear_bitmap(Buffer);
+
+    BITMAP *Start;   // image d'accueil du jeu
+    Start = load_bitmap("Accueil.bmp", NULL);
+
+
+    ///--------------Vérification des Bitmaps-----------///
+    if(Start==NULL)
+    {
+        allegro_message("Pb de image1") ;
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+
+    //-----------Variables------------//
+    int valeur=0;
+
+    extern volatile int mouse_x;
+    extern volatile int mouse_y;
+
+    //-----------Lancement de la page d'accueil-----------//
+    while(valeur==0)
+    {
+        blit(Start, Buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        show_mouse(Buffer);
+        blit(Buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        if(mouse_b&1 && 80<mouse_x && mouse_x <482 && 580<mouse_y && mouse_y <650)
+        {
+            // commencer une nouvelle partie
+            valeur=1;
+            clear_bitmap(Buffer);
+        }
+        else if(mouse_b&1 && 600<mouse_x && mouse_x <1100 && 580<mouse_y && mouse_y <650)
+        {
+            // continuer une ancienne partie
+            valeur=2;
+            clear_bitmap(Buffer);
+        }
+        else if(mouse_b&1 && 1230<mouse_x && mouse_x <1460 && 580<mouse_y && mouse_y <650)
+        {
+            // quitter le jeu
+            valeur=3;
+            clear_bitmap(Buffer);
+        }
+    }
+
+     destroy_bitmap(Start);
+
+     return valeur;
+}
