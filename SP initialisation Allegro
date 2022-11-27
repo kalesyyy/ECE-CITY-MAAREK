@@ -1,0 +1,14 @@
+void initAllegro()
+{
+    allegro_init(); //initialisation de allegro
+    install_mouse();    //initialisation de la souris
+    install_keyboard();     //initialisation du clavier
+    set_color_depth(desktop_color_depth());
+
+    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED,1524,855,0,0)!=0)      //
+    {
+        allegro_message("prb gfx mode");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+}
